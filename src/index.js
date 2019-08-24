@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+//import Navbar from 'react-bootstrap/Navbar';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Square(props) {
   return (
