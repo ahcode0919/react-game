@@ -158,9 +158,17 @@ class Game extends React.Component {
       );
     });
 
-    const status = winner ? 'Winner 💯: ' + winner: 'Next player 😎: ' + (this.state.xIsNext ? 'X' : 'O');
     if (!this.state.sort) {
       moves = moves.reverse();
+    }
+    let status = '';
+
+    if (winner === undefined) {
+      status = 'Draw!!!';
+    } else if (winner) {
+      status = 'Winner 💯: ' + current.squares[winner[0]];
+    } else {
+      status = 'Next player 😎: ' + (this.state.xIsNext ? 'X' : 'O');
     }
     const winningSquares = winner ? winner : [-1,-1,-1]; 
 
@@ -201,11 +209,19 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+  let draw = true;
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+    if (!(squares[a] && squares[b] && squares[c])) {
+      draw = false;
     }
+
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return [a,b,c];
+    }
+  }
+  if (draw) {
+    return undefined;
   }
   return null;
 }
