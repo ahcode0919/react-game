@@ -55,6 +55,7 @@ class Game extends React.Component {
         lastMove: null,
         squares: Array(9).fill(null)
       }],
+      sort: true,
       stepNumber: 0,
       xIsNext: true,
     };
@@ -95,7 +96,9 @@ class Game extends React.Component {
     if (calculateWinner(squares) || squares[i]) {
       return;
     } 
+
     squares[i] = this.state.xIsNext ? 'X' : 'O';
+
     this.setState({
       history: history.concat([{
         lastMove: i,
@@ -111,12 +114,20 @@ class Game extends React.Component {
       stepNumber: step,
       xIsNext: (step % 2) === 0,
     }
+
     if (step === 0) {
       state.history = [{
         squares: Array(9).fill(null)
       }]
     }
+
     this.setState(state);
+  }
+
+  sortMoves() {
+    let currentState = Object.assign({}, this.state);
+    currentState.sort = !currentState.sort;
+    this.setState(currentState);
   }
 
   render() {
@@ -124,16 +135,16 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    const moves = history.map((_, move) => {
+    let moves = history.map((_, move) => {
+      const colRow = this.calculateColRow(history[move]);
       let desc = move ?
         'Go to move #' + move :
         'Go to game start';
 
-      if ((move === history.length - 1) && history.length > 1) {
+      if (move === history.length - 1) {
         desc = <b>{desc}</b>
       }
 
-      const colRow = this.calculateColRow(history[move])
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button> 
@@ -141,10 +152,13 @@ class Game extends React.Component {
           <p className="col-row">Column: {colRow.col}, Row: {colRow.row}</p>
           }
         </li>
-      )
+      );
     });
 
     const status = winner ? 'Winner 💯: ' + winner: 'Next player 😎: ' + (this.state.xIsNext ? 'X' : 'O');
+    if (!this.state.sort) {
+      moves = moves.reverse();
+    }
 
     return (
       <div className="game">
