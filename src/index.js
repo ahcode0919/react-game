@@ -6,9 +6,10 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Square(props) {
+  const className = props.winner ? 'winning-square square' : 'square';
   return (
     <button 
-      className="square" 
+      className={className}
       onClick={() => props.onClick()}
     >
       {props.value}
@@ -18,10 +19,12 @@ function Square(props) {
 
 class Board extends React.Component {
   renderSquare(i) {
+    const winner = this.props.winningSquares.includes(i);
     return (
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        winner={winner}
       />
     );
   }
@@ -159,6 +162,7 @@ class Game extends React.Component {
     if (!this.state.sort) {
       moves = moves.reverse();
     }
+    const winningSquares = winner ? winner : [-1,-1,-1]; 
 
     return (
       <div className="game">
@@ -166,10 +170,12 @@ class Game extends React.Component {
           <Board 
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            winningSquares={winningSquares}
           />
         </div>
-        <div className="game-info">
-          <div>{status}</div>
+        <div className="game-status">
+          <div className="easy-pad">{status}</div>
+          <div className="easy-pad"><button className="sort-button" onClick={() => this.sortMoves()}>Sort Moves</button></div>
           <ol>{moves}</ol>
         </div>
       </div>

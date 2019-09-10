@@ -21,6 +21,10 @@ ol, ul {
   display: inline-block
 }
 
+.sort-button {
+  display: inline-block
+}
+
 .square {
   background: #fff;
   border: 1px solid #999;
@@ -53,3 +57,14 @@ ol, ul {
   margin-left: 20px;
 }
 
+.game-board {
+  padding: 20px;
+}
+
+.game-status {
+  padding-top: 15px;
+}
+
+.easy-pad {
+  padding: 5px;
+}
