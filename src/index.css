@@ -17,6 +17,10 @@ ol, ul {
   margin-bottom: 10px;
 }
 
+.col-row {
+  display: inline-block
+}
+
 .square {
   background: #fff;
   border: 1px solid #999;

@@ -54,11 +54,40 @@ class Game extends React.Component {
     super(props);
     this.state = {
       history: [{
+        lastMove: null,
         squares: Array(9).fill(null)
       }],
       stepNumber: 0,
       xIsNext: true,
     };
+  }
+
+  calculateColRow(move) {
+    if (move.lastMove === null) {
+      return null;
+    }
+
+    let row = 1;
+    let col = 1;
+    let count = 0;
+
+    for(let i = 0; i <= move.lastMove; i++) {
+      if (i === move.lastMove) {
+        break;
+      }
+      count += 1;
+      col += 1;
+      if (count === 3) {
+        row += 1;
+        count = 0;
+        col = 1;
+      }
+    }
+
+    return {
+      col: `${col}`,
+      row: `${row}`
+    }
   }
 
   handleClick(i) {
@@ -71,6 +100,7 @@ class Game extends React.Component {
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([{
+        lastMove: i,
         squares: squares
       }]),
       stepNumber: history.length,
@@ -100,22 +130,23 @@ class Game extends React.Component {
       let desc = move ?
         'Go to move #' + move :
         'Go to game start';
+
       if ((move === history.length - 1) && history.length > 1) {
         desc = <b>{desc}</b>
       }
+
+      const colRow = this.calculateColRow(history[move])
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.jumpTo(move)}>{desc}</button> 
+          { colRow && 
+          <p className="col-row">Column: {colRow.col}, Row: {colRow.row}</p>
+          }
         </li>
       )
     });
 
-    let status;
-    if (winner) {
-      status = 'Winner 💯: ' + winner; 
-    } else {
-      status = 'Next player 😎: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
+    const status = winner ? 'Winner 💯: ' + winner: 'Next player 😎: ' + (this.state.xIsNext ? 'X' : 'O');
 
     return (
       <div className="game">
