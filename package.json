@@ -33,6 +33,9 @@
     ]
   },
   "devDependencies": {
-    "eslint": "^6.2.2"
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^6.2.2",
+    "react-test-renderer": "^16.9.0"
   }
 }

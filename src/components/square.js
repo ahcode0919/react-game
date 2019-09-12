@@ -1,10 +1,13 @@
 import React from 'react';
 
-export default function Square(props) {
-  const className = props.winner ? 'winning-square square' : 'square';
+export function getClassName(winner) {
+  return winner ? 'winning-square square' : 'square';
+}
+
+export default function Square(props) {  
   return (
     <button 
-      className={className}
+      className={getClassName(props.winner)}
       onClick={() => props.onClick()}
     >
       {props.value}
