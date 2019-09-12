@@ -1,21 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Square from './components/square';
+
 import './index.css';
 //import Navbar from 'react-bootstrap/Navbar';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-function Square(props) {
-  const className = props.winner ? 'winning-square square' : 'square';
-  return (
-    <button 
-      className={className}
-      onClick={() => props.onClick()}
-    >
-      {props.value}
-    </button>
-  );
-}
 
 class Board extends React.Component {
   renderSquare(i) {
