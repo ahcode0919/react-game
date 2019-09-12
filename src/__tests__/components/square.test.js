@@ -9,16 +9,17 @@ describe('Square helper functions', () => {
 });
 
 describe('Square component', () => {
+  const props = {
+    onClick: jest.fn(),
+    value: 'X',
+    winner: false
+  }
+
   it('should render', () => {
-    shallow(Square({ winner: true }));
+    shallow(Square(props));
   });
 
   it('should assign props', () => {
-    const props = {
-      onClick: jest.fn(),
-      value: 'X',
-      winner: true
-    }
     const wrapper = shallow(Square(props));
     wrapper.simulate('click');
 

@@ -1,44 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Square from './components/square';
+import Board from './components/board';
 
 import './index.css';
 //import Navbar from 'react-bootstrap/Navbar';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-class Board extends React.Component {
-  renderSquare(i) {
-    const winner = this.props.winningSquares.includes(i);
-    return (
-      <Square
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-        winner={winner}
-      />
-    );
-  }
-
-  render() {
-    let rows = [];
-    let count = 0;
-    for(let i = 0; i < 3; i++) {
-      let squares = [];
-      for (let j = 0; j < 3; j++) {
-        squares.push(this.renderSquare(count));
-        count += 1;
-      }
-      rows[i] = <div className="board-row">
-        {squares}
-      </div>;
-    }
-    return (
-      <div>
-        {rows}
-      </div>
-    );
-  }
-}
 
 class Game extends React.Component {
   constructor(props) {
