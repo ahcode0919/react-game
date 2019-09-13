@@ -2,6 +2,9 @@ import React from 'react';
 import Square from './square';
 
 export function isWinner(squareNumber, props) {
+  if (!props.winningSquares) {
+    return false;
+  }
   return props.winningSquares.includes(squareNumber);
 }
 

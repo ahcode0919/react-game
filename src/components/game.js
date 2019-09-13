@@ -87,6 +87,19 @@ export function getMoves(state) {
   return moves;
 }
 
+export function getStatus(winner, xIsNext, currentSquares) {
+  let status = '';
+
+  if (winner === undefined) {
+    status = 'Draw!!!';
+  } else if (winner) {
+    status = 'Winner 💯: ' + currentSquares[winner[0]];
+  } else {
+    status = 'Next player 😎: ' + (xIsNext ? 'X' : 'O');
+  }
+  return status;
+}
+
 export function handleClick(squareNumber, state) {
   const history = state.history.slice(0, state.stepNumber + 1);
   const squares = history[history.length - 1].squares.slice();
@@ -145,10 +158,10 @@ export default class Game extends React.Component {
   }
   
   render() {
-    const current = this.state.history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
-    const movesInfo = getMoves(this.state);
-    const moves = movesInfo.map((val) => {
+    const currentSquares = this.state.history[this.state.stepNumber].squares;
+    const winner = calculateWinner(currentSquares);
+    const status = getStatus(winner, this.state.xIsNext, currentSquares);
+    const moves = getMoves(this.state).map((val) => {
       return (
         <li key={val.move}>
           <button onClick={() => this.setState(jumpToStep(val.move))}>{val.desc}</button> 
@@ -159,24 +172,13 @@ export default class Game extends React.Component {
       );
     });
 
-    let status = '';
-
-    if (winner === undefined) {
-      status = 'Draw!!!';
-    } else if (winner) {
-      status = 'Winner 💯: ' + current.squares[winner[0]];
-    } else {
-      status = 'Next player 😎: ' + (this.state.xIsNext ? 'X' : 'O');
-    }
-    const winningSquares = winner ? winner : [-1,-1,-1]; 
-
     return (
       <div className="game">
         <div className="game-board">
           <Board 
-            squares={current.squares}
+            squares={currentSquares}
             onClick={(i) => this.onClick(i)}
-            winningSquares={winningSquares}
+            winningSquares={winner}
           />
         </div>
         <div className="game-status">
