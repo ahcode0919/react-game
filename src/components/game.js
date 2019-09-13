@@ -183,7 +183,9 @@ export default class Game extends React.Component {
         </div>
         <div className="game-status">
           <div className="easy-pad">{status}</div>
-          <div className="easy-pad"><button className="sort-button" onClick={() => this.setState(sortMoves(this.state))}>Sort Moves</button></div>
+          <div className="easy-pad">
+            <button className="sort-button" onClick={() => this.setState(sortMoves(this.state))}>Sort Moves</button>
+          </div>
           <ol>{moves}</ol>
         </div>
       </div>

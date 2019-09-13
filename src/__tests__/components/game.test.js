@@ -39,6 +39,44 @@ describe('Game Helpers', () => {
     });
   });
 
+  describe('Get moves', () => {
+    it('should get move info for new game', () => {
+
+    });
+
+    it('should get move info', () => {
+
+    });
+
+    it('should get reversed move info', () => {
+
+    });
+  });
+
+  describe('Get status', () => {
+    it('should get draw status', () => {
+
+    });
+
+    it('should get winner status', () => {
+
+    });
+
+    it('should get next player status', () => {
+
+    });
+  });
+
+  describe('Handle click', () => {
+    it('should handle click', () => {
+
+    });
+
+    it('should not handle click when game is complete', () => {
+
+    });
+  });
+
   describe('Jump to step', () => {
     it('should clear the history if "Go to game start" is selected', () => {
       const state = jumpToStep(0);
@@ -61,12 +99,6 @@ describe('Game Helpers', () => {
         sort: false
       }
       expect(sortMoves(state).sort).toBe(true);
-    });
-  });
-
-  describe('Handle click', () => {
-    it('should handle click', () => {
-
     });
   });
 });
