@@ -4,6 +4,7 @@ import Game, {
   calculateColRow,
   calculateWinner,
   getMoves,
+  getStatus,
   jumpToStep,
   sortMoves 
 } from '../../components/game';
@@ -94,15 +95,15 @@ describe('Game Helpers', () => {
 
   describe('Get status', () => {
     it('should get draw status', () => {
-
+      expect(getStatus(true, undefined)).toBe('Draw!!!');
     });
 
     it('should get winner status', () => {
-
+      expect(getStatus(true, [])).toBe('Winner 💯: O');
     });
 
     it('should get next player status', () => {
-
+      expect(getStatus(true, null)).toBe('Next player 😎: X');
     });
   });
 

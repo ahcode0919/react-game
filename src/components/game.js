@@ -87,14 +87,13 @@ export function getMoves(state) {
   return moves;
 }
 
-export function getStatus(xIsNext, currentSquares) {
-  const winner = calculateWinner(currentSquares);
+export function getStatus(xIsNext, winningSquares) {
   let status = '';
 
-  if (winner === undefined) {
+  if (winningSquares === undefined) {
     status = 'Draw!!!';
-  } else if (winner) {
-    status = 'Winner 💯: ' + currentSquares[winner[0]];
+  } else if (winningSquares) {
+    status = 'Winner 💯: ' + (xIsNext ? 'O': 'X');
   } else {
     status = 'Next player 😎: ' + (xIsNext ? 'X' : 'O');
   }
@@ -160,8 +159,8 @@ export default class Game extends React.Component {
   
   render() {
     const currentSquares = this.state.history[this.state.stepNumber].squares;
-    const winner = calculateWinner(currentSquares);
-    const status = getStatus(this.state.xIsNext, currentSquares);
+    const winningSquares = calculateWinner(currentSquares);
+    const status = getStatus(this.state.xIsNext, winningSquares);
     const moves = getMoves(this.state).map((val) => {
       return (
         <li key={val.move}>
@@ -179,7 +178,7 @@ export default class Game extends React.Component {
           <Board 
             squares={currentSquares}
             onClick={(i) => this.onClick(i)}
-            winningSquares={winner}
+            winningSquares={winningSquares}
           />
         </div>
         <div className="game-status">
