@@ -87,7 +87,8 @@ export function getMoves(state) {
   return moves;
 }
 
-export function getStatus(winner, xIsNext, currentSquares) {
+export function getStatus(xIsNext, currentSquares) {
+  const winner = calculateWinner(currentSquares);
   let status = '';
 
   if (winner === undefined) {
@@ -160,7 +161,7 @@ export default class Game extends React.Component {
   render() {
     const currentSquares = this.state.history[this.state.stepNumber].squares;
     const winner = calculateWinner(currentSquares);
-    const status = getStatus(winner, this.state.xIsNext, currentSquares);
+    const status = getStatus(this.state.xIsNext, currentSquares);
     const moves = getMoves(this.state).map((val) => {
       return (
         <li key={val.move}>
