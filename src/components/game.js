@@ -103,6 +103,7 @@ export function getStatus(xIsNext, winningSquares) {
 export function handleClick(squareNumber, state) {
   const history = state.history.slice(0, state.stepNumber + 1);
   const squares = history[history.length - 1].squares.slice();
+  
   if (calculateWinner(squares) || squares[squareNumber]) {
     return;
   } 

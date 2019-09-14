@@ -5,6 +5,7 @@ import Game, {
   calculateWinner,
   getMoves,
   getStatus,
+  handleClick,
   jumpToStep,
   sortMoves 
 } from '../../components/game';
@@ -108,12 +109,34 @@ describe('Game Helpers', () => {
   });
 
   describe('Handle click', () => {
-    it('should handle click', () => {
+    const state = {
+      history: [{
+        lastMove: null,
+        squares: Array(9).fill(null)
+      }, {
+        lastMove: 0,
+        squares: ['X', null, null, null, null, null, null, null, null]
+      }],
+      stepNumber: 1,
+      xIsNext: false
+    }
 
+    it('should handle click', () => {
+      const newState = handleClick(2, state);
+      expect(newState.xIsNext).toBe(true);
+      expect(newState.stepNumber).toBe(2);
+      expect(newState.history[2].lastMove).toBe(2);
+      expect(newState.history[2].squares).toStrictEqual(['X', null, 'O', null, null, null, null, null, null]);
+    });
+
+    it('should not handle click for previously selected tile', () => {
+      expect(handleClick(0, state)).toBeUndefined();
     });
 
     it('should not handle click when game is complete', () => {
-
+      const winningState = Object.assign({}, state);
+      winningState.history[1].squares = ['X', 'X', 'X', null, null, null, null, null, null];
+      expect(handleClick(3, state)).toBeUndefined();
     });
   });
 
