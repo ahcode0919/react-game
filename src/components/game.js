@@ -1,6 +1,9 @@
 import React from 'react';
 import Board from '../components/board';
 
+// Future work:
+// 1. Seperate the move history from the Game Component
+
 export function calculateColRow(lastMove) {
   if (lastMove === null) {
     return null;
@@ -103,7 +106,7 @@ export function getStatus(xIsNext, winningSquares) {
 export function handleClick(squareNumber, state) {
   const history = state.history.slice(0, state.stepNumber + 1);
   const squares = history[history.length - 1].squares.slice();
-  
+
   if (calculateWinner(squares) || squares[squareNumber]) {
     return;
   } 
@@ -165,7 +168,7 @@ export default class Game extends React.Component {
     const moves = getMoves(this.state).map((val) => {
       return (
         <li key={val.move}>
-          <button onClick={() => this.setState(jumpToStep(val.move))}>{val.desc}</button> 
+          <button className="step" onClick={() => this.setState(jumpToStep(val.move))}>{val.desc}</button> 
           { val.col && 
           <p className="col-row">Column: {val.col}, Row: {val.row}</p>
           }

@@ -10,7 +10,7 @@ import Game, {
   sortMoves 
 } from '../../components/game';
 
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 describe('Game Helpers', () => {
   describe('Calculate column and row', () => {
@@ -166,6 +166,37 @@ describe('Game Helpers', () => {
   });
 });
 
-// describe('Game component', () => {
+describe('Game component', () => {
+  it('should render', () => {
+    shallow(<Game />);
+  });
 
-// });
+  it('should update square state on click', () => {
+    const wrapper = mount(<Game />);
+    const square = wrapper.find('.square').first().simulate('click');
+    expect(square.text()).toBe('X');
+  });
+
+  it('should jump to move when history list is clicked', () => {
+    const wrapper = mount(<Game />);
+    wrapper.find('.square').first().simulate('click');
+    let steps = wrapper.find('.step');
+    
+    expect(steps).toHaveLength(2);
+    expect(steps.last().text()).toBe('Go to move #1');
+
+    wrapper.find('.step').first().simulate('click');
+    expect(wrapper.find('.step').text()).toBe('Go to game start');
+  });
+
+  it('should sort move list', () => {
+    const wrapper = mount(<Game />);
+    wrapper.find('.square').first().simulate('click');
+    wrapper.find('.sort-button').simulate('click');
+    let steps = wrapper.find('.step');
+
+    expect(steps.first().text()).toBe('Go to move #1');
+    expect(steps.last().text()).toBe('Go to game start');
+    expect(steps).toHaveLength(2);
+  });
+});
