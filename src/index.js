@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Game from './components/game';
+import App from './App';
 
 import './index.css';
-//import Navbar from 'react-bootstrap/Navbar';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <Game />,
+  <App />,
   document.getElementById('root')
 );
