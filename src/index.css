@@ -73,3 +73,11 @@ ol, ul {
 .easy-pad {
   padding: 5px;
 }
+
+body {
+  padding-top: 50px;
+}
+
+html {
+  background-color: #6c757d;
+}
