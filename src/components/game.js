@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from '../components/board';
+import GameStatus  from '../components/gamestatus';
 
 // Future work:
 // 1. Seperate the move history from the Game Component
@@ -185,13 +186,18 @@ export default class Game extends React.Component {
             winningSquares={winningSquares}
           />
         </div>
-        <div className="game-status">
+        <GameStatus 
+          moves={moves}
+          sortMoves={() => this.setState(sortMoves(this.state))}
+          status={status}
+        />
+        {/* <div className="game-status">
           <div className="easy-pad">{status}</div>
           <div className="easy-pad">
             <button className="sort-button" onClick={() => this.setState(sortMoves(this.state))}>Sort Moves</button>
           </div>
           <ol>{moves}</ol>
-        </div>
+        </div> */}
       </div>
     );
   }
