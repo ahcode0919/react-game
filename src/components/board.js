@@ -1,5 +1,6 @@
 import React from 'react';
 import Square from './square';
+import { Row } from 'react-bootstrap';
 
 export function isWinner(squareNumber, props) {
   if (!props.winningSquares) {
@@ -30,9 +31,9 @@ export default class Board extends React.Component {
         squares.push(Board.renderSquare(count, this.props));
         count += 1;
       }
-      rows[i] = <div key={`row-${i}`} className="board-row">
+      rows[i] = <Row noGutters="true" key={`row-${i}`} className="board-row">
         {squares}
-      </div>;
+      </Row>;
     }
     return (
       <div>

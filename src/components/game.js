@@ -181,14 +181,14 @@ export default class Game extends React.Component {
     return (
       <Card className="game" style={{}}>
         <Row>
-          <Col xs={12} md={6} className="game-board">
+          <Col xs={{ span: 8 , offset: 2 }} md={{span: 5, offset: 0 }} className="game-board">
             <Board 
               squares={currentSquares}
               onClick={(i) => this.onClick(i)}
               winningSquares={winningSquares}
             />
           </Col>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={{span: 7, offset: 0 }}>
             <GameStatus 
               moves={moves}
               sortMoves={() => this.setState(sortMoves(this.state))}

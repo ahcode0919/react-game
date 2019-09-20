@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, Col } from 'react-bootstrap';
 
 export function getClassName(winner) {
   return winner ? 'winning-square square' : 'square';
@@ -6,11 +7,15 @@ export function getClassName(winner) {
 
 export default function Square(props) {  
   return (
-    <button 
+    <Col xs={4} fluid='true'>
+      <Button fluid='true'
       className={getClassName(props.winner)}
+      bsClass='square'
       onClick={() => props.onClick()}
-    >
-      {props.value}
-    </button>
+      variant="outline-light"
+      >
+        <p className="text">{props.value}</p>
+    </Button>
+    </Col>
   );
 }
