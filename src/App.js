@@ -13,7 +13,7 @@ const App = () => (
       </Navbar.Collapse>
     </Navbar>
       <Row>
-        <Col>
+        <Col md={{ span: 8, offset: 2 }}>
           <Game />
         </Col>
       </Row>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Board from '../components/board';
 import GameStatus  from '../components/gamestatus';
+import { Card, Row, Col } from 'react-bootstrap';
 
 // Future work:
 // 1. Seperate the move history from the Game Component
@@ -178,27 +179,24 @@ export default class Game extends React.Component {
     });
 
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board 
-            squares={currentSquares}
-            onClick={(i) => this.onClick(i)}
-            winningSquares={winningSquares}
-          />
-        </div>
-        <GameStatus 
-          moves={moves}
-          sortMoves={() => this.setState(sortMoves(this.state))}
-          status={status}
-        />
-        {/* <div className="game-status">
-          <div className="easy-pad">{status}</div>
-          <div className="easy-pad">
-            <button className="sort-button" onClick={() => this.setState(sortMoves(this.state))}>Sort Moves</button>
-          </div>
-          <ol>{moves}</ol>
-        </div> */}
-      </div>
+      <Card className="game" style={{}}>
+        <Row>
+          <Col xs={12} md={6} className="game-board">
+            <Board 
+              squares={currentSquares}
+              onClick={(i) => this.onClick(i)}
+              winningSquares={winningSquares}
+            />
+          </Col>
+          <Col xs={12} md={6}>
+            <GameStatus 
+              moves={moves}
+              sortMoves={() => this.setState(sortMoves(this.state))}
+              status={status}
+            />
+          </Col>
+        </Row>
+      </Card>
     );
   }
 }
