@@ -2,6 +2,7 @@ import React from 'react';
 import Board, { isWinner } from '../../components/board';
 import Square from '../../components/square';
 import { mount, shallow } from 'enzyme';
+import { Row } from 'react-bootstrap';
 
 describe('Board helpers', () => {
   const props = {
@@ -16,8 +17,8 @@ describe('Board helpers', () => {
   });
 
   it('should render square', () => {
-    const wrapper = shallow(Board.renderSquare(1, props));
-    expect(wrapper.props().children).toBe('X');
+    const wrapper = mount(Board.renderSquare(1, props));
+    expect(wrapper.find('.text').props().children).toBe('X');
     expect(wrapper.props().className).not.toBeNull();
   });
 });
@@ -36,8 +37,8 @@ describe('Board component', () => {
   it('should be a 3x3 Board', () => {
     const wrapper = mount(<Board {...props}/>);
     expect(wrapper.find(Square)).toHaveLength(9);
-    expect(wrapper.find('.board-row')).toHaveLength(3);
-    expect(wrapper.find('.winning-square')).toHaveLength(3);
+    expect(wrapper.find(Row)).toHaveLength(3);
+    expect(wrapper.find('.winning-square').hostNodes()).toHaveLength(3);
   });
 
   it('should add click handlers', () => {

@@ -1,5 +1,5 @@
 import Square, { getClassName } from '../../components/square';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 describe('Square helper functions', () => {
   it('should get correct class name', () => {
@@ -20,11 +20,11 @@ describe('Square component', () => {
   });
 
   it('should assign props', () => {
-    const wrapper = shallow(Square(props));
-    wrapper.simulate('click');
+    const wrapper = mount(Square(props));
+    wrapper.find('.square').first().simulate('click');
 
     expect(props.onClick).toHaveBeenCalledTimes(1);
-    expect(wrapper.props().children).toBe('X');
+    expect(wrapper.find('.text').props().children).toBe('X');
     expect(wrapper.props().className).not.toBeNull();
   });
 });

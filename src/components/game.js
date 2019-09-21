@@ -3,31 +3,6 @@ import Board from '../components/board';
 import GameStatus  from '../components/gamestatus';
 import { Card, Row, Col } from 'react-bootstrap';
 
-// Future work:
-// 1. Seperate the move history from the Game Component
-
-export function calculateColRow(lastMove) {
-  if (lastMove === null) {
-    return null;
-  }
-  let row = 1;
-  let col = 1;
-
-  for(let i = 0; i < lastMove; i++) {
-    if (col === 3) {
-      row += 1;
-      col = 1;
-      continue
-    }
-    col += 1;
-  }
-
-  return {
-    col: `${col}`,
-    row: `${row}`
-  }
-}
-
 export function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -59,50 +34,6 @@ export function calculateWinner(squares) {
     return undefined;
   }
   return null;
-}
-
-export function getMoves(state) {
-  let moves = state.history.map((_, move) => {
-    const colRow = calculateColRow(state.history[move].lastMove);
-    let desc = move ?
-      'Go to move #' + move :
-      'Go to game start';
-
-    if (move === state.stepNumber) {
-      desc = <b>{desc}</b>
-    }
-
-    const moveInfo = { 
-      desc,
-      move 
-    }
-
-    if (colRow) {
-      moveInfo.col = colRow.col;
-      moveInfo.row = colRow.row;
-    }
-
-    return moveInfo;
-  });
-
-  if (!state.sort) {
-    moves = moves.reverse();
-  }
-
-  return moves;
-}
-
-export function getStatus(xIsNext, winningSquares) {
-  let status = '';
-
-  if (winningSquares === undefined) {
-    status = 'Draw!!!';
-  } else if (winningSquares) {
-    status = 'Winner 💯: ' + (xIsNext ? 'O': 'X');
-  } else {
-    status = 'Next player 😎: ' + (xIsNext ? 'X' : 'O');
-  }
-  return status;
 }
 
 export function handleClick(squareNumber, state) {
@@ -158,25 +89,10 @@ export default class Game extends React.Component {
       xIsNext: true,
     };
   }
-
-  onClick(i) {
-    this.setState(handleClick(i, this.state));
-  }
   
   render() {
     const currentSquares = this.state.history[this.state.stepNumber].squares;
     const winningSquares = calculateWinner(currentSquares);
-    const status = getStatus(this.state.xIsNext, winningSquares);
-    const moves = getMoves(this.state).map((val) => {
-      return (
-        <li key={val.move}>
-          <button className="step" onClick={() => this.setState(jumpToStep(val.move))}>{val.desc}</button> 
-          { val.col && 
-          <p className="col-row">Column: {val.col}, Row: {val.row}</p>
-          }
-        </li>
-      );
-    });
 
     return (
       <Card className="game">
@@ -184,15 +100,19 @@ export default class Game extends React.Component {
           <Col xs={{ span: 8 , offset: 2 }} md={{ span: 5, offset: 0 }} className="game-board">
             <Board 
               squares={currentSquares}
-              onClick={(i) => this.onClick(i)}
+              onClick={(i) => this.setState(handleClick(i, this.state))}
               winningSquares={winningSquares}
             />
           </Col>
           <Col xs={12} md={{ span: 7, offset: 0 }}>
             <GameStatus 
-              moves={moves}
+              history={this.state.history}
+              selectStep={(step) => this.setState(jumpToStep(step))}
+              sort={this.state.sort}
               sortMoves={() => this.setState(sortMoves(this.state))}
-              status={status}
+              stepNumber={this.state.stepNumber}
+              xIsNext={this.state.xIsNext}
+              winningSquares={winningSquares}
             />
           </Col>
         </Row>

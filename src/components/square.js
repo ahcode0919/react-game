@@ -8,14 +8,14 @@ export function getClassName(winner) {
 export default function Square(props) {  
   return (
     <Col xs={4} fluid='true'>
-      <Button fluid='true'
-      className={getClassName(props.winner)}
-      bsClass='square'
-      onClick={() => props.onClick()}
-      variant="outline-light"
+      <Button 
+        fluid='true'
+        className={getClassName(props.winner)}
+        onClick={() => props.onClick()}
+        variant="outline-light"
       >
         <p className="text">{props.value}</p>
-    </Button>
+      </Button>
     </Col>
   );
 }
