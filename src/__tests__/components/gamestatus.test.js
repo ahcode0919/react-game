@@ -2,10 +2,10 @@ import React from 'react';
 
 import { mount, shallow } from 'enzyme';
 
-import  { 
+import {
   calculateColRow,
   getMoves,
-  getStatus
+  getStatus,
 } from '../../components/gamestatus';
 
 describe('Game Status helpers', () => {
@@ -15,21 +15,23 @@ describe('Game Status helpers', () => {
     });
 
     it('should calculate correct column and row', () => {
-      expect(calculateColRow(0)).toStrictEqual({ col: "1", row: "1" });
-      expect(calculateColRow(3)).toStrictEqual({ col: "1", row: "2" });
-      expect(calculateColRow(5)).toStrictEqual({ col: "3", row: "2" });
-      expect(calculateColRow(8)).toStrictEqual({ col: "3", row: "3" });
+      expect(calculateColRow(0)).toStrictEqual({ col: '1', row: '1' });
+      expect(calculateColRow(3)).toStrictEqual({ col: '1', row: '2' });
+      expect(calculateColRow(5)).toStrictEqual({ col: '3', row: '2' });
+      expect(calculateColRow(8)).toStrictEqual({ col: '3', row: '3' });
     });
   });
 
   describe('Get moves', () => {
     const baseState = {
-      history: [{
-        lastMove: null,
-        squares: Array(9).fill(null)
-      }],
-      stepNumber: 0
-    }
+      history: [
+        {
+          lastMove: null,
+          squares: Array(9).fill(null),
+        },
+      ],
+      stepNumber: 0,
+    };
 
     it('should get move info for new game', () => {
       const moves = getMoves(baseState);
@@ -42,10 +44,12 @@ describe('Game Status helpers', () => {
 
     it('should get move info', () => {
       const state = Object.assign({}, baseState);
-      state.history = state.history.concat([{
-        lastMove: 0,
-        squares: ['X', '', '', '', '', '', '', '', '']
-      }]);
+      state.history = state.history.concat([
+        {
+          lastMove: 0,
+          squares: ['X', '', '', '', '', '', '', '', ''],
+        },
+      ]);
       state.stepNumber = 1;
       state.sort = true;
       const moves = getMoves(state);
@@ -58,10 +62,12 @@ describe('Game Status helpers', () => {
 
     it('should get reversed move info', () => {
       const state = Object.assign({}, baseState);
-      state.history = state.history.concat([{
-        lastMove: 0,
-        squares: ['X', '', '', '', '', '', '', '', '']
-      }]);
+      state.history = state.history.concat([
+        {
+          lastMove: 0,
+          squares: ['X', '', '', '', '', '', '', '', ''],
+        },
+      ]);
       state.stepNumber = 1;
       state.sort = false;
       const moves = getMoves(state);
@@ -88,7 +94,5 @@ describe('Game Status helpers', () => {
 });
 
 describe('Game Status component', () => {
-  it('should render', () => {
-
-  });
+  it('should render', () => {});
 });

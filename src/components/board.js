@@ -25,20 +25,18 @@ export default class Board extends React.Component {
     let rows = [];
     let count = 0;
 
-    for(let i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       let squares = [];
       for (let j = 0; j < 3; j++) {
         squares.push(Board.renderSquare(count, this.props));
         count += 1;
       }
-      rows[i] = <Row noGutters="true" key={`row-${i}`} className="board-row">
-        {squares}
-      </Row>;
+      rows[i] = (
+        <Row noGutters="true" key={`row-${i}`} className="board-row">
+          {squares}
+        </Row>
+      );
     }
-    return (
-      <div>
-        {rows}
-      </div>
-    );
+    return <div>{rows}</div>;
   }
 }

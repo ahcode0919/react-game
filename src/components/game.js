@@ -1,6 +1,6 @@
 import React from 'react';
 import Board from '../components/board';
-import GameStatus  from '../components/gamestatus';
+import GameStatus from '../components/gamestatus';
 import { Card, Row, Col } from 'react-bootstrap';
 
 export function calculateWinner(squares) {
@@ -42,30 +42,34 @@ export function handleClick(squareNumber, state) {
 
   if (calculateWinner(squares) || squares[squareNumber]) {
     return;
-  } 
+  }
 
   squares[squareNumber] = state.xIsNext ? 'X' : 'O';
 
   return {
-    history: history.concat([{
-      lastMove: squareNumber,
-      squares: squares
-    }]),
+    history: history.concat([
+      {
+        lastMove: squareNumber,
+        squares: squares,
+      },
+    ]),
     stepNumber: history.length,
-    xIsNext: !state.xIsNext
-  }
+    xIsNext: !state.xIsNext,
+  };
 }
 
 export function jumpToStep(step) {
   let state = {
     stepNumber: step,
-    xIsNext: (step % 2) === 0,
-  }
+    xIsNext: step % 2 === 0,
+  };
 
   if (step === 0) {
-    state.history = [{
-      squares: Array(9).fill(null)
-    }]
+    state.history = [
+      {
+        squares: Array(9).fill(null),
+      },
+    ];
   }
   return state;
 }
@@ -80,16 +84,18 @@ export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      history: [{
-        lastMove: null,
-        squares: Array(9).fill(null)
-      }],
+      history: [
+        {
+          lastMove: null,
+          squares: Array(9).fill(null),
+        },
+      ],
       sort: true,
       stepNumber: 0,
       xIsNext: true,
     };
   }
-  
+
   render() {
     const currentSquares = this.state.history[this.state.stepNumber].squares;
     const winningSquares = calculateWinner(currentSquares);
@@ -97,17 +103,21 @@ export default class Game extends React.Component {
     return (
       <Card className="game">
         <Row>
-          <Col xs={{ span: 8 , offset: 2 }} md={{ span: 5, offset: 0 }} className="game-board">
-            <Board 
+          <Col
+            xs={{ span: 8, offset: 2 }}
+            md={{ span: 5, offset: 0 }}
+            className="game-board"
+          >
+            <Board
               squares={currentSquares}
-              onClick={(i) => this.setState(handleClick(i, this.state))}
+              onClick={i => this.setState(handleClick(i, this.state))}
               winningSquares={winningSquares}
             />
           </Col>
           <Col xs={12} md={{ span: 7, offset: 0 }}>
-            <GameStatus 
+            <GameStatus
               history={this.state.history}
-              selectStep={(step) => this.setState(jumpToStep(step))}
+              selectStep={step => this.setState(jumpToStep(step))}
               sort={this.state.sort}
               sortMoves={() => this.setState(sortMoves(this.state))}
               stepNumber={this.state.stepNumber}

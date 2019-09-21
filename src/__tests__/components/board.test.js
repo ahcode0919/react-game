@@ -8,7 +8,7 @@ describe('Board helpers', () => {
   const props = {
     onClick: jest.fn(),
     squares: ['', 'X', '', '', '', '', '', '', ''],
-    winningSquares: [1]
+    winningSquares: [1],
   };
 
   it('should determine if square is winner', () => {
@@ -27,23 +27,26 @@ describe('Board component', () => {
   const props = {
     onClick: jest.fn(),
     squares: ['X', 'X', 'X', 'O', '', 'O', 'O', '', ''],
-    winningSquares: [0, 1, 2]
+    winningSquares: [0, 1, 2],
   };
 
   it('should render', () => {
-    shallow(<Board {...props}/>);
+    shallow(<Board {...props} />);
   });
 
   it('should be a 3x3 Board', () => {
-    const wrapper = mount(<Board {...props}/>);
+    const wrapper = mount(<Board {...props} />);
     expect(wrapper.find(Square)).toHaveLength(9);
     expect(wrapper.find(Row)).toHaveLength(3);
     expect(wrapper.find('.winning-square').hostNodes()).toHaveLength(3);
   });
 
   it('should add click handlers', () => {
-    const wrapper = mount(<Board {...props}/>);
-    wrapper.find('.square').first().simulate('click');
+    const wrapper = mount(<Board {...props} />);
+    wrapper
+      .find('.square')
+      .first()
+      .simulate('click');
     expect(props.onClick).toHaveBeenCalledTimes(1);
   });
 });

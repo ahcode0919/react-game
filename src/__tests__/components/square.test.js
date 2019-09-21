@@ -12,8 +12,8 @@ describe('Square component', () => {
   const props = {
     onClick: jest.fn(),
     value: 'X',
-    winner: false
-  }
+    winner: false,
+  };
 
   it('should render', () => {
     shallow(Square(props));
@@ -21,7 +21,10 @@ describe('Square component', () => {
 
   it('should assign props', () => {
     const wrapper = mount(Square(props));
-    wrapper.find('.square').first().simulate('click');
+    wrapper
+      .find('.square')
+      .first()
+      .simulate('click');
 
     expect(props.onClick).toHaveBeenCalledTimes(1);
     expect(wrapper.find('.text').props().children).toBe('X');

@@ -16,7 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "pretty": "npx prettier --check \"./**/.*.js\""
+    "pretty": "npx prettier --write \"./**/*.js\""
   },
   "eslintConfig": {
     "extends": "react-app"

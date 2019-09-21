@@ -7,36 +7,34 @@ export function calculateColRow(lastMove) {
   let row = 1;
   let col = 1;
 
-  for(let i = 0; i < lastMove; i++) {
+  for (let i = 0; i < lastMove; i++) {
     if (col === 3) {
       row += 1;
       col = 1;
-      continue
+      continue;
     }
     col += 1;
   }
 
   return {
     col: `${col}`,
-    row: `${row}`
-  }
+    row: `${row}`,
+  };
 }
 
 export function getMoves(props) {
   let moves = props.history.map((_, move) => {
     const colRow = calculateColRow(props.history[move].lastMove);
-    let desc = move ?
-      'Go to move #' + move :
-      'Go to game start';
+    let desc = move ? 'Go to move #' + move : 'Go to game start';
 
     if (move === props.stepNumber) {
-      desc = <b>{desc}</b>
+      desc = <b>{desc}</b>;
     }
 
-    const moveInfo = { 
+    const moveInfo = {
       desc,
-      move 
-    }
+      move,
+    };
 
     if (colRow) {
       moveInfo.col = colRow.col;
@@ -59,7 +57,7 @@ export function getStatus(xIsNext, winningSquares) {
   if (winningSquares === undefined) {
     status = 'Draw!!!';
   } else if (winningSquares) {
-    status = 'Winner 💯: ' + (xIsNext ? 'O': 'X');
+    status = 'Winner 💯: ' + (xIsNext ? 'O' : 'X');
   } else {
     status = 'Next player 😎: ' + (xIsNext ? 'X' : 'O');
   }
@@ -67,27 +65,36 @@ export function getStatus(xIsNext, winningSquares) {
 }
 
 export default class GameStatus extends React.Component {
-  render () {
+  render() {
     const status = getStatus(this.props.xIsNext, this.props.winningSquares);
-    const moves = getMoves(this.props).map((val) => {
+    const moves = getMoves(this.props).map(val => {
       return (
         <li key={val.move}>
-          <button className="step" onClick={() => this.props.selectStep(val.move)}>{val.desc}</button> 
-          { val.col && 
-          <p className="col-row">Column: {val.col}, Row: {val.row}</p>
-          }
+          <button
+            className="step"
+            onClick={() => this.props.selectStep(val.move)}
+          >
+            {val.desc}
+          </button>
+          {val.col && (
+            <p className="col-row">
+              Column: {val.col}, Row: {val.row}
+            </p>
+          )}
         </li>
       );
     });
 
     return (
       <div className="game-status">
-            <div className="easy-pad">{status}</div>
-            <div className="easy-pad">
-              <button className="sort-button" onClick={this.props.sortMoves}>Sort Moves</button>
-            </div>
-            <ol>{moves}</ol>
+        <div className="easy-pad">{status}</div>
+        <div className="easy-pad">
+          <button className="sort-button" onClick={this.props.sortMoves}>
+            Sort Moves
+          </button>
+        </div>
+        <ol>{moves}</ol>
       </div>
-    )
+    );
   }
 }
