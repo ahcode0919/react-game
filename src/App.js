@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Jumbotron, Row, Col, Navbar, Nav } from 'react-bootstrap';
+import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
 import Game from './components/game';
 
 const App = () => (
