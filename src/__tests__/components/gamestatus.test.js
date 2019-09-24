@@ -82,23 +82,17 @@ describe('Game Status helpers', () => {
   describe('Get status', () => {
     it('should get draw status', () => {
       const wrapper = shallow(getStatus(true, undefined));
-      expect(wrapper.html()).toBe(
-        '<div role="alert" class="fade status-message alert alert-info show">Draw!!!</div>'
-      );
+      expect(wrapper.html()).toBe('<div class="status-message draw card"><div class="card-body">Draw!!!</div></div>');
     });
 
     it('should get winner status', () => {
       const wrapper = shallow(getStatus(true, []));
-      expect(wrapper.html()).toBe(
-        '<div role="alert" class="fade status-message alert alert-success show">Winner <span role="img" aria-label="100">💯</span>: O</div>'
-      );
+      expect(wrapper.html()).toBe('<div class="status-message win card"><div class="card-body">Winner <span role="img" aria-label="100">💯</span>: O</div></div>');
     });
 
     it('should get next player status', () => {
       const wrapper = shallow(getStatus(true, null));
-      expect(wrapper.html()).toBe(
-        '<div role="alert" class="fade status-message alert alert-secondary show">Next player <span role="img" aria-label="Smiley with shades">😎</span>: X</div>'
-      );
+      expect(wrapper.html()).toBe('<div class="status-message next card"><div class="card-body">Next player <span role="img" aria-label="Smiley with shades">😎</span>: X</div></div>');
     });
   });
 });

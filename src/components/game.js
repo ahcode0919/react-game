@@ -106,6 +106,7 @@ export default class Game extends React.Component {
           <Col
             sm={{ span: 8, offset: 2 }}
             md={{ span: 5, offset: 0 }}
+            lg={{ span: 6, offset: 0 }}
             className="game-board"
           >
             <Board
@@ -114,7 +115,11 @@ export default class Game extends React.Component {
               winningSquares={winningSquares}
             />
           </Col>
-          <Col sm={12} md={{ span: 7, offset: 0 }}>
+          <Col 
+            sm={12}
+            md={{ span: 7, offset: 0 }}
+            lg={{ span: 6, offset: 0 }}
+          >
             <GameStatus
               history={this.state.history}
               selectStep={step => this.setState(jumpToStep(step))}

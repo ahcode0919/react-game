@@ -17,30 +17,29 @@ ol, ul {
   padding-left: 30px;
 }
 
-#root {
-
-}
-
-.app {
-
-  /* backdrop-filter: blur(5px); */
-}
-
-.card {
-  margin-top: 80px;
-  background-color: rgba(240, 240, 240, 0.85);
-}
-
 .board-row:after {
   clear: both;
   content: "";
   display: table;
 }
 
+.btn-outline-dark {
+  border-color: black;
+  color: black;
+}
+
+.card-body {
+  padding: 10px;
+}
+
 .col-row {
   display: inline-block;
   font-weight: bold;
   margin-left: 10px;
+}
+
+.draw {
+  background-color: rgba(25, 152, 236, 0.3);
 }
 
 .easy-pad {
@@ -53,9 +52,12 @@ ol, ul {
 
 .game {
   padding: 25px;
-  margin-top: 80px;
   margin-bottom: 25px;
   min-height: 500px;
+  margin-top: 80px;
+  background-color: rgba(240, 240, 240, 0.15);
+  backdrop-filter: blur(5px);
+  border-radius: 15px;
 }
 
 .game-info {
@@ -74,8 +76,19 @@ ol, ul {
   background: #ddd;
 }
 
+.next {
+  background-color: rgba(143, 143, 143, 0.3);
+}
+
 .sort-button {
-  display: inline-block
+  display: inline-block;
+  color: rgba(2, 77, 173);
+  border-color: rgba(2, 77, 173);
+}
+
+.sort-button:hover {
+  background-color:rgba(2, 77, 173, 0.7);
+  border-color: rgba(2, 77, 173);
 }
 
 .square {
@@ -83,42 +96,34 @@ ol, ul {
   border-radius: 0;
   border-width: 1.5px;
   color: black;
-  font-size: 6vw;
   font-weight: bold;
-  line-height: 9.5vw;
+  font-size: 20vw;
+  line-height: 27vw;
   padding-top: 100%;
   margin-right: -1px;
   margin-top: -1px;
   width: 100%;
+
 }
 
-@media (max-width: 767.98px) {
+@media (min-width: 576px) {
   .square {
-    border-color: black;
-    border-radius: 0;
-    color: black;
-    font-size: 12vw;
-    font-weight: bold;
+    font-size: 15vw;
     line-height: 18vw;
-    padding-top: 100%;
-    margin-right: -1px;
-    margin-top: -1px;
-    width: 100%;
   }
 }
 
-@media (max-width: 575.98px) {
+@media (min-width: 768px) {
   .square {
-    border-color: black;
-    border-radius: 0;
-    color: black;
-    font-size: 18vw;
-    font-weight: bold;
-    line-height: 27vw;
-    padding-top: 100%;
-    margin-right: -1px;
-    margin-top: -1px;
-    width: 100%;
+    font-size: 8vw;
+    line-height: 9.5vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .square {
+    font-size: 10vw;
+    line-height: 12vw;
   }
 }
 
@@ -127,7 +132,7 @@ ol, ul {
 }
 
 .square:hover {
-  background-color:rgba(77, 77, 77, 0.5);
+  background-color:rgba(77, 77, 77, 0.3);
   border-color: black;
 }
 
@@ -136,7 +141,14 @@ ol, ul {
 }
 
 .step-button {
-  min-width: 160px;
+  min-width: 150px;
+}
+
+.status-message {
+  font-size: 2vw;
+  font-weight: bold;
+  backdrop-filter: blur(4px);
+  margin-left: 5px;
 }
 
 .text {
@@ -147,8 +159,12 @@ ol, ul {
   right: 0;
 }
 
+.win {
+  background-color: rgba(24, 207, 0, 0.3); 
+}
+
 .winning-square {
-  box-shadow: inset 0 0 5px rgb(92, 207, 82);
+  box-shadow: inset 0 0 10px rgb(92, 207, 82);
   border: 1px solid rgb(92, 207, 82);
   border-color: black;
 }

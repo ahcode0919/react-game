@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Button, Row, Col } from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 
 const GAME_START_TEXT = 'Go to game start';
 
@@ -57,29 +57,35 @@ export function getMoves(props) {
 export function getStatus(xIsNext, winningSquares) {
   if (winningSquares === undefined) {
     return (
-      <Alert className="status-message" variant="info">
-        Draw!!!
-      </Alert>
+      <Card className="status-message draw">
+        <Card.Body>
+          Draw!!!
+        </Card.Body>
+      </Card>
     );
   } else if (winningSquares) {
     return (
-      <Alert className="status-message" variant="success">
-        Winner{' '}
-        <span role="img" aria-label="100">
-          💯
-        </span>
-        : {xIsNext ? 'O' : 'X'}
-      </Alert>
+      <Card className="status-message win">
+        <Card.Body>
+          Winner{' '}
+          <span role="img" aria-label="100">
+            💯
+          </span>
+          : {xIsNext ? 'O' : 'X'}
+        </Card.Body>
+      </Card>
     );
   }
   return (
-    <Alert className="status-message" variant="secondary">
+    <Card className="status-message next">
+      <Card.Body>
       Next player{' '}
       <span role="img" aria-label="Smiley with shades">
         😎
       </span>
       : {xIsNext ? 'X' : 'O'}
-    </Alert>
+      </Card.Body>
+    </Card>
   );
 }
 
@@ -98,8 +104,8 @@ export default class GameStatus extends React.Component {
             size="sm"
             variant={
               val.desc === GAME_START_TEXT
-                ? 'outline-warning'
-                : 'outline-secondary'
+                ? 'outline-danger'
+                : 'outline-dark'
             }
           >
             {val.desc}
@@ -116,7 +122,7 @@ export default class GameStatus extends React.Component {
     return (
       <div className="game-status">
         <Row>
-          <Col md={8}>{status}</Col>
+          <Col sm={6}  md={10}>{status}</Col>
         </Row>
         <div className="easy-pad">
           <Button
