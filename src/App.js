@@ -3,8 +3,8 @@ import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
 import Game from './components/game';
 
 const App = () => (
-  <Container className="bg-secondary app" fluid="true">
-    <Navbar bg="dark" fixed="top">
+  <Container className="app" fluid="true">
+    <Navbar fixed="top">
       <Navbar.Brand href="#" className="text-light">
         Tic-Tac-Toe
       </Navbar.Brand>

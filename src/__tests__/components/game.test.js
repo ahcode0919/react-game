@@ -129,16 +129,18 @@ describe('Game component', () => {
       .find('.square')
       .first()
       .simulate('click');
-    let steps = wrapper.find('.step');
+    const firstStep = wrapper.find('.first-step');
+    const step = wrapper.find('.step');
 
-    expect(steps).toHaveLength(2);
-    expect(steps.last().text()).toBe('Go to move #1');
+    expect(step).toHaveLength(1);
+    expect(firstStep).toHaveLength(1);
+    expect(step.text()).toBe('Go to move #1Column: 1, Row: 1');
 
     wrapper
-      .find('.step')
+      .find('.first-step')
       .first()
       .simulate('click');
-    expect(wrapper.find('.step').text()).toBe('Go to game start');
+    expect(wrapper.find('.first-step').text()).toBe('Go to game start');
   });
 
   it('should sort move list', () => {
@@ -147,10 +149,13 @@ describe('Game component', () => {
       .find('.square')
       .first()
       .simulate('click');
-    wrapper.find('.sort-button').simulate('click');
+    wrapper
+      .find('.sort-button')
+      .first()
+      .simulate('click');
     let steps = wrapper.find('.step');
 
-    expect(steps.first().text()).toBe('Go to move #1');
+    expect(steps.first().text()).toBe('Go to move #1Column: 1, Row: 1');
     expect(steps.last().text()).toBe('Go to game start');
     expect(steps).toHaveLength(2);
   });
